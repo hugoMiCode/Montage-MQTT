@@ -184,6 +184,7 @@ Que signifient les paramètres suivants ?
 \end{itemize}
 
 Observez les logs du serveur MQTT pour identifier les échanges de messages \texttt{PINGREQ} et \texttt{PINGRESP}. Comment ces messages sont-ils utilisés pour maintenir la connexion entre le client et le broker ?
+Que signifie le paramètre clean session dans un message CONNECT et quel est son effet ?
 
 \section{Mise en évidence des parametres lors de la publication de messages avec MQTT}
 
@@ -199,12 +200,16 @@ Que signifient les paramètres suivants ?
 
 Envoyez plusieurs messages à la suite sur le même topic et observez les valeurs de ces paramètres. Comment évoluent-ils à chaque message publié ?
 
+
 \subsection{Paramètre retain}
 
 Pour mettre en évidence le fonctionnement du paramètre \texttt{retain}, publiez un message sur un topic avec ce paramètre activé
 et un autre message sur le même topic sans ce paramètre. Quelle est la différence entre les deux messages ?
 Souscrivez ensuite à ce topic pour observer le comportement du broker dans les deux cas.
 
+\bigskip
+\noindent
+En quoi la clean session et le retain flag diffèrent-ils dans MQTT ?
 
 \section{Mise en œuvre du chiffrement TLS avec MQTT}
 
