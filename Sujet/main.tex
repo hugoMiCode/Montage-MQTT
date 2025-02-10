@@ -21,8 +21,6 @@
 
 \tableofcontents
 
-
-
 \newpage
 
 \section{Introduction}
@@ -88,13 +86,6 @@ Lors de ce TP, vous utiliserez Wireshark pour analyser les échanges MQTT et TLS
 \end{itemize}
 
 \subsubsection{Filtres spécifiques aux messages MQTT}
-Les messages MQTT possèdent différents types identifiés par un numéro spécifique. On peut filtrer ces messages dans Wireshark avec la syntaxe suivante :
-
-\begin{verbatim}
-mqtt.msgtype == X
-\end{verbatim}
-
-où \texttt{X} est la valeur correspondant au type de message (voir la figure \ref{fig:msgtype}).
 
 \begin{figure}[H]
     \centering
@@ -102,6 +93,14 @@ où \texttt{X} est la valeur correspondant au type de message (voir la figure \r
     \caption{Types de messages MQTT}
     \label{fig:msgtype}
 \end{figure}
+
+Les messages MQTT possèdent différents types identifiés par un numéro spécifique. On peut filtrer ces messages dans Wireshark avec la syntaxe suivante :
+
+\begin{verbatim}
+mqtt.msgtype == X
+\end{verbatim}
+
+où \texttt{X} est la valeur correspondant au type de message (voir la figure \ref{fig:msgtype}).
 
 
 \subsubsection{Filtres pour l'analyse TLS}
@@ -115,8 +114,6 @@ où \texttt{X} est la valeur correspondant au type de message (voir la figure \r
 
 
 L'ensemble de ces filtres peuvent être combinés avec des opérateurs logiques comme \texttt{AND} et \texttt{OR} pour affiner les résultats de la capture.
-
-
 
 \section{Mise en œuvre des niveaux de qualité de service (QoS) avec MQTT}
 
@@ -231,8 +228,7 @@ Quelques questions permettent de valider la compréhension du chiffrement TLS : 
 \section{Mise en oeuvre d'un environnement complet avec MQTT}
 
 Nous allons simuler un environnement d'une maison connectée avec plusieurs capteurs.
-
-\noindent La hiérarchie des topics est représentée dans l'arbre suivant :
+La hiérarchie des topics est représentée dans l'arbre suivant :
 
 \begin{center}
     \begin{forest}
@@ -274,6 +270,10 @@ Si on veut toute les informations du salon, on souscrit au topic \texttt{maison/
 Si on veut les informations de tous les capteurs de la maison, on souscrit au topic \texttt{maison/\#}.
 \newline
 Si on veut les informations de toutes les temperature de la maison, on souscrit au topic \texttt{maison/+/temperature}.
+
+
+\subsection{Question}
+Mettre en oeuvre quelques commandes pour comprendre le fonctionnement des \# et des + dans les topics MQTT.
 
 
 \end{document}
