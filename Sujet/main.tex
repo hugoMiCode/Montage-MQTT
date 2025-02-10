@@ -8,6 +8,8 @@
 \usepackage{float}
 \usepackage{graphicx}
 \usepackage{forest}
+\usepackage{cleveref}
+
 
 
 \geometry{left = 1.8cm, right = 1.8cm}
@@ -94,7 +96,8 @@ Lors de ce TP, vous utiliserez Wireshark pour analyser les échanges MQTT et TLS
     \label{fig:msgtype}
 \end{figure}
 
-Les messages MQTT possèdent différents types identifiés par un numéro spécifique. On peut filtrer ces messages dans Wireshark avec la syntaxe suivante :
+Ils existent plusieurs types de messages MQTT, identifiés par un numéro de type.
+On peut filtrer ces messages dans Wireshark avec la syntaxe suivante :
 
 \begin{verbatim}
 mqtt.msgtype == X
@@ -136,7 +139,7 @@ Lancez le script Python \texttt{ClientMQTT\_QoS.py}, en choisissant un QoS de vo
 Examinez les logs du serveur MQTT pour identifier les éléments suivants :
 
 \begin{itemize}
-    \item Le message de connexion \texttt{CONNACK} et les informations associées (p. ex. le code de retour).
+    \item Le message de connexion \texttt{CONNACK} et les informations associées.
     \item Les échanges de messages lors de l'abonnement (avec \texttt{SUBSCRIBE} et \texttt{SUBACK}).
     \item Les échanges de messages pour chaque niveau de QoS (publiés avec \texttt{PUBLISH}, \texttt{PUBREC}, \texttt{PUBREL}, \texttt{PUBCOMP}).
 \end{itemize}
@@ -156,7 +159,7 @@ Répondez aux questions suivantes :
 \begin{itemize}
     \item Que se passe-t-il lorsque vous utilisez QoS 0 ? Identifiez les messages échangés entre le client et le broker dans les logs.
     \item Que se passe-t-il avec QoS 1 ? Observez l'échange des messages et notez les différences par rapport au QoS 0.
-    \item Que se passe-t-il avec QoS 2 ? Décrivez en détail les étapes supplémentaires de la communication (par exemple, \texttt{PUBREC}, \texttt{PUBREL}, \texttt{PUBCOMP}).
+    \item Que se passe-t-il avec QoS 2 ? Décrivez en détail les étapes supplémentaires de la communication (\texttt{PUBREC}, \texttt{PUBREL}, \texttt{PUBCOMP}).
 \end{itemize}
 
 \subsection{Discussion et Analyse}
@@ -172,7 +175,7 @@ Une fois l'analyse terminée, répondez aux questions suivantes :
 
 Utilisez le script Python \texttt{ClientMQTT\_Ping.py}, que signifient les messages \texttt{PINGREQ} et \texttt{PINGRESP} dans le contexte de MQTT ?
 
-Que signifient les paramètres suivants dans le contexte de MQTT ?
+Que signifient les paramètres suivants ?
 
 \begin{itemize}
     \item \texttt{p0}, \texttt{p1}, \texttt{p2}
@@ -186,8 +189,7 @@ Observez les logs du serveur MQTT pour identifier les échanges de messages \tex
 
 Lancez le script Python \texttt{ClientMQTT\_Pub.py} pour publier un message sur un topic de votre choix. Analysez les logs du serveur MQTT pour identifier les paramètres des messages échangés.
 
-Que signifient les paramètres suivants dans le contexte de MQTT ?
-
+Que signifient les paramètres suivants ?
 \begin{itemize}
     \item \texttt{dx}
     \item \texttt{q0}, \texttt{q1}, \texttt{q2}
@@ -196,6 +198,13 @@ Que signifient les paramètres suivants dans le contexte de MQTT ?
 \end{itemize}
 
 Envoyez plusieurs messages à la suite sur le même topic et observez les valeurs de ces paramètres. Comment évoluent-ils à chaque message publié ?
+
+\subsection{Paramètre retain}
+
+Pour mettre en évidence le fonctionnement du paramètre \texttt{retain}, publiez un message sur un topic avec ce paramètre activé
+et un autre message sur le même topic sans ce paramètre. Quelle est la différence entre les deux messages ?
+Souscrivez ensuite à ce topic pour observer le comportement du broker dans les deux cas.
+
 
 \section{Mise en œuvre du chiffrement TLS avec MQTT}
 
@@ -269,7 +278,7 @@ Si on veut toute les informations du salon, on souscrit au topic \texttt{maison/
 \newline
 Si on veut les informations de tous les capteurs de la maison, on souscrit au topic \texttt{maison/\#}.
 \newline
-Si on veut les informations de toutes les temperature de la maison, on souscrit au topic \texttt{maison/+/temperature}.
+Si on veut les informations de toutes les températures de la maison, on souscrit au topic \texttt{maison/+/temperature}.
 
 
 \subsection{Question}
