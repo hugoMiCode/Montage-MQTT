@@ -19,6 +19,11 @@
     \LARGE \textbf{Travail Pratique : MQTT - Qualité de Service (QoS) et Chiffrement TLS}
 \end{center}
 
+\tableofcontents
+
+
+
+\newpage
 
 \section{Introduction}
 
@@ -69,6 +74,48 @@ Plusieurs fichiers sont mis à disposition pour ce travail pratique :
     \item \texttt{ClientMQTT\_Pub.py} : Simple script Python pour publier un message sur un topic.
     \item \texttt{ClientMQTT\_Sub.py} : Simple script Python pour s'abonner à un topic.
 \end{itemize}
+
+\subsection{Commandes utiles}
+
+Lors de ce TP, vous utiliserez Wireshark pour analyser les échanges MQTT et TLS. Voici quelques filtres utiles pour faciliter l'observation des paquets pertinents.
+
+\subsubsection{Filtres généraux}
+\begin{itemize}
+    \item \texttt{mqtt} : Affiche tous les paquets du protocole MQTT.
+    \item \texttt{tcp.port == 1883} : Affiche uniquement les paquets circulant sur le port MQTT non sécurisé.
+    \item \texttt{tcp.port == 8883} : Affiche uniquement les paquets circulant sur le port MQTT sécurisé (TLS).
+    \item \texttt{tcp.port == 1883 || tcp.port == 8883} : Affiche les paquets circulant sur l'un des deux ports MQTT.
+\end{itemize}
+
+\subsubsection{Filtres spécifiques aux messages MQTT}
+Les messages MQTT possèdent différents types identifiés par un numéro spécifique. On peut filtrer ces messages dans Wireshark avec la syntaxe suivante :
+
+\begin{verbatim}
+mqtt.msgtype == X
+\end{verbatim}
+
+où \texttt{X} est la valeur correspondant au type de message (voir la figure \ref{fig:msgtype}).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Images/msgtype.png}
+    \caption{Types de messages MQTT}
+    \label{fig:msgtype}
+\end{figure}
+
+
+\subsubsection{Filtres pour l'analyse TLS}
+\begin{itemize}
+    \item \texttt{tls} : Affiche tous les paquets du protocole TLS.
+    \item \texttt{tls.handshake.type == 1} : Filtre les paquets contenant un message \textbf{Client Hello}.
+    \item \texttt{tls.handshake.type == 2} : Filtre les paquets contenant un message \textbf{Server Hello}.
+    \item \texttt{tls.handshake.type == 11} : Filtre les paquets contenant un \textbf{Certificat} envoyé par le serveur.
+    \item \texttt{tls.record.content\_type == 23} : Affiche les paquets contenant des données applicatives chiffrées (\textbf{Application Data}).
+\end{itemize}
+
+
+L'ensemble de ces filtres peuvent être combinés avec des opérateurs logiques comme \texttt{AND} et \texttt{OR} pour affiner les résultats de la capture.
+
 
 
 \section{Mise en œuvre des niveaux de qualité de service (QoS) avec MQTT}
@@ -138,8 +185,6 @@ Que signifient les paramètres suivants dans le contexte de MQTT ?
 
 Observez les logs du serveur MQTT pour identifier les échanges de messages \texttt{PINGREQ} et \texttt{PINGRESP}. Comment ces messages sont-ils utilisés pour maintenir la connexion entre le client et le broker ?
 
-
-
 \section{Mise en évidence des parametres lors de la publication de messages avec MQTT}
 
 Lancez le script Python \texttt{ClientMQTT\_Pub.py} pour publier un message sur un topic de votre choix. Analysez les logs du serveur MQTT pour identifier les paramètres des messages échangés.
@@ -182,7 +227,6 @@ En capturant le trafic sur le port \textbf{8883}, il est possible d'observer les
 \subsection{Analyse et compréhension}
 
 Quelques questions permettent de valider la compréhension du chiffrement TLS : \begin{itemize} \item Quels sont ses objectifs ? \item Que contient le message \textbf{Client Hello} ? \item Comment s’assurer que la communication MQTT est bien chiffrée ? \item Pourquoi Wireshark ne peut-il plus lire le contenu des messages MQTT ? \end{itemize}
-
 
 \section{Mise en oeuvre d'un environnement complet avec MQTT}
 

@@ -1,5 +1,12 @@
 # Montage MQTT
 
+## Clonage du repository
+
+1. **Pour cloner le repository**
+    ```bash
+    git clone https://github.com/hugoMiCode/Montage-MQTT.git
+    ```
+
 ## Installation de l'environnement virtuel
 
 1. **Créer un environnement virtuel** :

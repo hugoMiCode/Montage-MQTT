@@ -1,11 +1,9 @@
 import paho.mqtt.client as mqtt
 
-# ce script permet de mettre en evidence la connexion sécurisée avec TLS
-
+# Ce script permet de publier un message sur le topic "test/topic" du broker MQTT "hugo-serveur.cloudns.eu" en utilisant le protocole TLS.
 
 client = mqtt.Client()
-client.tls_set(ca_certs="C:/Users/Hugo/Repositories/ENS/Montage MQTT/Python/mosquitto.crt")
-# client.tls_set(ca_certs="mosquitto.crt")
+client.tls_set(ca_certs="Python/mosquitto.crt")
 client.connect("hugo-serveur.cloudns.eu", 8883)
 client.loop_start()
 client.publish("test/topic", "Message sécurisé via TLS", qos=1)
